@@ -67,7 +67,6 @@ export class AppComponent implements OnInit {
   setSelectedAlert(alert: Anomaly) {
     this.selectedAlert = alert;
     this.reasonOptions = this.reasons.filter(t => t.machine === this.selectedAlert?.machine);
-    this.anomaly.nativeElement  
   }
 
   generateWaveAnomaly(): void {
@@ -121,8 +120,8 @@ export class AppComponent implements OnInit {
       if (this.selectedAlert?.soundClip) {
         this.waveNormal.load(this.selectedAlert.soundClip);
         this.waveNormal.on('seek', (e) => {
-          this.anomaly.nativeElement.currentTime =
-            e * this.anomaly.nativeElement.duration;
+          this.normal.nativeElement.currentTime =
+            e * this.normal.nativeElement.duration;
         });
       }
     });

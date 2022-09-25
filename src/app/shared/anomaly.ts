@@ -6,4 +6,6 @@ export interface Anomaly {
     sensor: string;
     soundClip: string;
     comments?: string;
+    reason?: string;
+    action?: string;
 }

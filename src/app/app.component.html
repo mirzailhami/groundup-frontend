@@ -50,7 +50,7 @@
           <div class="anomaly-output flex-fill p-3">
             <div class="fs-5 mb-2 text-secondary">Anomaly Machine Output</div>
 
-            <audio #anomaly controls class="mb-5" (play)="onPlayPressed(audio)" (stop)="wave.stop()"
+            <audio #anomaly controls class="mb-5" (play)="onPlayPressed()" (stop)="wave.stop()"
               (pause)="wave.pause()" (seeked)="onSeeking()">
               <source [src]="selectedAlert?.soundClip" type="audio/ogg" />
               <source [src]="selectedAlert?.soundClip" type="audio/mpeg" />

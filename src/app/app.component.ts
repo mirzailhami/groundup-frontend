@@ -21,8 +21,6 @@ import { FormBuilder, Validators } from '@angular/forms'
 })
 export class AppComponent implements OnInit, AfterViewInit {
   wave: WaveSurfer = null;
-  audio =
-    'https://ia800508.us.archive.org/15/items/LoveThemeFromTheGodfather/02LoveThemeFromTheGodfather.mp3';
 
   @ViewChild('anomaly') anomaly: ElementRef;
   anomalies: Anomaly[] = [];
@@ -44,6 +42,7 @@ export class AppComponent implements OnInit, AfterViewInit {
      this.api.getAnomalies().subscribe((anomalies) => {
       this.anomalies = anomalies;
       this.selectedAlert = anomalies[0];
+      this.generateWaveform();
      });
      this.api.getReasons().subscribe((reasons) => {
       this.reasons = reasons;
@@ -54,7 +53,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     this.api.updateAnomaly(this.selectedAlert._id, this.updateForm.value).subscribe(res => {
-      console.log(res);
+      const idx = this.anomalies.findIndex(t => t._id === res._id);
+      this.anomalies[idx] = {...this.anomalies[idx], ...this.updateForm.value};
       this.updateForm.reset();
     });
   }
@@ -65,14 +65,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.generateWaveform();
-    Promise.resolve().then(() => {
-      this.wave.load(this.audio);
-      this.wave.on('seek', (e) => {
-        this.anomaly.nativeElement.currentTime =
-          e * this.anomaly.nativeElement.duration;
-      });
-    });
+    
+    // Promise.resolve().then(() => {
+    // });
   }
 
   generateWaveform(): void {
@@ -94,10 +89,15 @@ export class AppComponent implements OnInit, AfterViewInit {
           }),
         ],
       });
+      this.wave.load(this.selectedAlert?.soundClip);
+      this.wave.on('seek', (e) => {
+        this.anomaly.nativeElement.currentTime =
+          e * this.anomaly.nativeElement.duration;
+      });
     });
   }
 
-  onPlayPressed(audio: string): void {
+  onPlayPressed(): void {
     if (!this.wave) {
       this.wave.on('ready', () => {
         this.wave.play();

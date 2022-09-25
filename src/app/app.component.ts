@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
   waveNormal: WaveSurfer = null;
 
   @ViewChild('anomaly') anomaly: ElementRef;
+  @ViewChild('normal') normal: ElementRef;
+
   anomalies: Anomaly[] = [];
   reasons: any[] = [];
   actions: any[] = [];
@@ -165,8 +167,8 @@ export class AppComponent implements OnInit {
 
   onNormalSeeking() {
     if (this.waveNormal) {
-      const currentTime = this.anomaly.nativeElement.currentTime;
-      const duration = this.anomaly.nativeElement.duration;
+      const currentTime = this.normal.nativeElement.currentTime;
+      const duration = this.normal.nativeElement.duration;
       const position = currentTime / duration;
 
       var currentProgress =

@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+html,
+body {
+  font-family: 'Source Sans Pro';
+}
+
+body {
+  background-color: #f8f8ff;
+}
+
+:root {
+  --bs-blue: #3478fc;
+  --bs-primary: #3478fc;
+  --bs-secondary: #5f6368;
+  --bs-secondary-rgb: 95, 99, 104;
+  --bs-warning: #fca034;
+  --bs-warning-rgb: 252, 160, 52;
+
+  --bs-btn-bg: #526cfe;
+
+  --bs-border-color: rgb(114 117 122 / 50%);
+  --bs-border-color-translucent: rgb(114 117 122 / 50%);
+}
+
+.text-bg-warning {
+  background-color: var(--bs-warning) !important;
+}

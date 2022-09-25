@@ -1,0 +1,25 @@
+.navbar {
+  border-bottom: 1px solid #a2aebc;
+  background: white;
+  height: 53px;
+}
+
+.active {
+  background-color: #f0f5ff;
+  position: relative;
+}
+
+.active:after {
+  position: absolute;
+  content: '';
+  height: 3px;
+  width: 100%;
+  background-color: #3478fc;
+  bottom: 0px;
+  left: 0px;
+}
+
+.navbar-nav .nav-link {
+  font-size: 13px;
+  padding: 16px;
+}

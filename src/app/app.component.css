@@ -1,0 +1,58 @@
+.wrapper {
+  border: 1px solid #a2aebc;
+  background-color: white;
+}
+
+aside {
+  border-right: 1px solid #a2aebc;
+}
+
+label {
+  font-weight: 700;
+  color: #2a2e5d;
+}
+
+.badge.mild{
+  background-color: green!important;
+}
+
+.badge.moderate{
+  background-color: #FFC000!important;
+}
+
+.badge.severe{
+  background-color: red!important;
+}
+
+.alert-list .card {
+  cursor: pointer;
+}
+
+.alert-list .card-body .card-title .id {
+  position: relative;
+}
+
+.alert-list .card.active {
+  border-color: var(--bs-primary);
+  border-width: 2px;
+}
+
+.alert-list .card-body .card-title .id:before {
+  position: absolute;
+  content: '';
+  width: 9px;
+  height: 9px;
+  left: -15px;
+  top: 7px;
+  background-color: var(--bs-primary);
+  border-radius: 50%;
+}
+
+.btn-primary {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.machine-title {
+  border-bottom: 2px solid rgb(162 174 188 / 25%);
+}

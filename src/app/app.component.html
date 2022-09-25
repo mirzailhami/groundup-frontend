@@ -1,0 +1,104 @@
+<app-toolbar></app-toolbar>
+<div class="container-fluid px-3 py-3">
+  <div class="wrapper">
+    <div class="toolbar px-3 py-2 border-bottom">
+      <select class="form-select w-auto" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+    <div class="d-flex">
+      <aside class="w-25">
+        <div class="border-bottom px-3 py-2 d-flex align-items-center">
+          <span>Back</span>
+        </div>
+        <div class="notif-info border-bottom px-3 py-2 d-flex align-items-center">
+          <span class="me-3 text-secondary">{{anomalies.length}} alert</span><span class="badge rounded-pill text-bg-primary text-light">2
+            new</span>
+        </div>
+        <div class="alert-list p-3">
+          <div *ngFor="let x of anomalies" class="card mb-3 border-color {{selectedAlert?._id === x._id ? 'active' : ''}}" (click)="setSelectedAlert(x)">
+            <div class="card-body ps-4 py-2 pe-2">
+              <div class="
+                  card-title
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                ">
+                <span class="id">ID: {{x._id}}</span>
+                <span class="badge rounded-pill text-bg-warning text-light {{x.anomaly.toLowerCase()}}">{{x.anomaly}}</span>
+              </div>
+              <div class="card-text">
+                <div class="fw-bold text-secondary">{{x.reason}}</div>
+                <div class="text-secondary">
+                  Detected at {{x.timestamp}}
+                </div>
+                <div class="machine-type mt-2 link-primary">{{x.machine}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <main class="p-3 w-100">
+        <div class="machine-title px-4 pb-3">
+          <div class="fs-3 text-secondary m-0">Alert ID #{{selectedAlert?._id}}</div>
+          <div class="text-secondary">Detected at {{selectedAlert?.timestamp}}</div>
+        </div>
+        <div class="machine-output d-flex">
+          <div class="anomaly-output flex-fill p-3">
+            <div class="fs-5 mb-2 text-secondary">Anomaly Machine Output</div>
+
+            <audio #anomaly controls class="mb-5" (play)="onPlayPressed(audio)" (stop)="wave.stop()"
+              (pause)="wave.pause()" (seeked)="onSeeking()">
+              <source [src]="selectedAlert?.soundClip" type="audio/ogg" />
+              <source [src]="selectedAlert?.soundClip" type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+            <div id="waveform"></div>
+            <div id="wave-timeline" class="mb-5"></div>
+            <div id="wave-spectrogram"></div>
+          </div>
+          <div class="normal-output flex-fill p-3">
+            <div class="fs-5 mb-2 text-secondary">Anomaly Machine Output</div>
+            <audio controls class="mb-5">
+              <source [src]="selectedAlert?.soundClip" type="audio/ogg" />
+              <source [src]="selectedAlert?.soundClip" type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+            <div class="waveform"></div>
+            <div class="spectrogram"></div>
+          </div>
+        </div>
+        <div class="update-machine-form p-3 w-75">
+          <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="mb-3">
+              <label class="form-label">Equipment</label>
+              <div class="fw-bold">{{selectedAlert?.machine}}</div>
+            </div>
+            <div class="mb-3">
+              <label for="reasons" class="form-label">Suspected Reason</label>
+              <select id="reasons" class="form-select" formControlName="reason" required>
+                <option value="" [selected]="true">Unknown Anomaly</option>
+                <option *ngFor="let x of reasonOptions" [value]="x.reason">{{x.reason}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="actions" class="form-label">Action Required</label>
+              <select id="actions" class="form-select" formControlName="action" required>
+                <option value="" [selected]="true">Select Action</option>
+                <option *ngFor="let x of actions" [value]="x.title">{{x.title}}</option>
+              </select>
+            </div>
+            <div class="mb-4 mt-4">
+              <label for="comments" class="form-label">Comments</label>
+              <textarea class="form-control" id="comments" rows="3" formControlName="comments" required></textarea>
+            </div>
+            <button [disabled]="updateForm.invalid" type="submit" class="btn btn-primary px-4">UPDATE</button>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
